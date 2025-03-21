@@ -7,3 +7,4 @@ mod tokens;
 pub use cron::to_string;
 pub use errors::{Error, Result};
 pub use tokens::Tokenizer;
+pub use cron::Cron;

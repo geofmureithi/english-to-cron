@@ -1,4 +1,7 @@
-use super::{action, stack::Stack, Result};
+use crate::str_to_cron::Tokenizer;
+use std::str::FromStr;
+
+use super::{action, stack::Stack, Error, Result};
 
 #[derive(Default, Debug)]
 pub struct Cron {
@@ -56,4 +59,24 @@ pub fn to_string(tokens: Vec<String>) -> Result<String> {
     }
 
     Ok(format!("{cron}"))
+}
+
+impl FromStr for Cron {
+    type Err = Error;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let tokenizer = Tokenizer::new();
+        let tokens = tokenizer.run(s);
+
+        if tokens.is_empty() {
+            return Err(Error::InvalidInput);
+        }
+
+        let mut cron = Cron::default();
+        for token in tokens {
+            if let Some(state) = action::try_from_token(&token) {
+                state.process(&token, &mut cron)?;
+            }
+        }
+        Ok(cron)
+    }
 }
