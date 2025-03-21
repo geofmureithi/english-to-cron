@@ -22,6 +22,7 @@ impl Tokenizer {
         }
     }
 
+    #[must_use]
     pub fn run(&self, input_string: &str) -> Vec<String> {
         let matches = self
             .regex

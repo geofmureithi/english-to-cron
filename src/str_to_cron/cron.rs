@@ -71,7 +71,7 @@ impl FromStr for Cron {
             return Err(Error::InvalidInput);
         }
 
-        let mut cron = Cron::default();
+        let mut cron = Self::default();
         for token in tokens {
             if let Some(state) = action::try_from_token(&token) {
                 state.process(&token, &mut cron)?;
