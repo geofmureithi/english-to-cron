@@ -2,7 +2,7 @@
 #[allow(clippy::doc_markdown)]
 #[doc = include_str!("../README.md")]
 mod str_to_cron;
-pub use str_to_cron::{Error, Result, Tokenizer, Cron};
+pub use str_to_cron::{Cron, Error, Result, Tokenizer};
 
 /// Converts an English description of a schedule into cronjob syntax.
 ///
